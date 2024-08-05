@@ -11,9 +11,24 @@ public extension String {
     public func padded(size: Int = 2) -> String {
         let len = self.count
         var rtrn = self
-        for _ in len..<size{
-            rtrn = "0\(rtrn)"
+        if len <= size {
+            for _ in len..<size{
+                rtrn = "0\(rtrn)"
+            }
         }
         return rtrn
+    }
+    
+    public func characterAt(_ i: Int) -> String {
+      return String(Array(self)[i])
+    }
+    
+    func reduce() -> String {
+        if self.count > 1 {
+            var str = self
+            str.removeLast()
+            return str
+        }
+        return self
     }
 }
