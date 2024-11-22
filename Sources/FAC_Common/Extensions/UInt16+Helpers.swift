@@ -31,4 +31,8 @@ public extension UInt16 {
     public mutating func dec() {
         self = self &- 1
     }
+    
+    public init(msb: UInt8, lsb: UInt8) {
+        self.init(UInt16(UInt16(msb) * UInt16(256)) + UInt16(lsb))
+    }
 }
