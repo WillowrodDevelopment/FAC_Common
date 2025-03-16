@@ -23,6 +23,10 @@ public extension UInt16 {
     public func bin() -> String {
         return String(self, radix: 2).padded(size: 16)
     }
+    
+    public func toLog() -> String {
+        return "\(self) : \(self.hex())"
+    }
 
     public mutating func inc() {
         self = self &+ 1
@@ -32,8 +36,12 @@ public extension UInt16 {
         self = self &- 1
     }
     
-    public init(msb: UInt8, lsb: UInt8) {
+    public init(lsb: UInt8, msb: UInt8) {
         self.init(UInt16(UInt16(msb) * UInt16(256)) + UInt16(lsb))
+    }
+    
+    public func toInt16() -> Int16 {
+        return self > 0x7fff ? -Int16(~self + 1) : Int16(self)
     }
 }
 
@@ -62,8 +70,8 @@ public extension Int16 {
         self = self &- 1
     }
     
-    public init(msb: UInt8, lsb: UInt8) {
-        self.init(Int16(Int16(msb) * Int16(256)) + Int16(lsb))
+    public init(lsb: UInt8, msb: UInt8) {
+        self.init(UInt16(lsb: lsb, msb: msb).toInt16())
     }
 }
 

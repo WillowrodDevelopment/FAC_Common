@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 public extension String {
     public func padded(size: Int = 2) -> String {
@@ -30,5 +31,13 @@ public extension String {
             return str
         }
         return self
+    }
+    
+    func sysImage() -> String {
+        return "\(Image(systemName: self))"
+    }
+    
+    func image() -> String {
+        return "\(Image(self))"
     }
 }

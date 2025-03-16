@@ -36,9 +36,24 @@ public extension UInt8 {
             return clear(bit: bit)
         }
     }
+    
+    public func set(bit: Int, value: UInt8) -> UInt8 {
+        if (value > 0){
+            return set(bit: bit)
+        } else {
+            return clear(bit: bit)
+        }
+    }
 
     public func twosCompliment() -> UInt8 {
+        if self == 0x80 {
+            return self
+        }
         return ~self &+ 1
+    }
+    
+    public func twosComplimentAsInt() -> Int {
+        Int(~self &+ 1)
     }
 
     public func lowerNibble() -> UInt8 {
@@ -55,6 +70,10 @@ public extension UInt8 {
 
     public func bin() -> String {
         return String(self, radix: 2).padded(size: 8)
+    }
+    
+    public func toLog() -> String {
+        return "\(self) : \(self.hex()) : \(self.bin())"
     }
 
     public func rlc() -> (value: UInt8, carryMask: UInt8) {
@@ -91,4 +110,8 @@ public extension UInt8 {
         return (value: temp, carryMask: carry)
     }
     
+    public func compareTwos(_ value: UInt8) -> UInt16 {
+        let twos = value.twosCompliment()
+        return UInt16(self) &+ UInt16(twos & 0x7f) &- UInt16(twos & 0x80)
+    }
 }
