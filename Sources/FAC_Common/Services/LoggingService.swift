@@ -11,11 +11,11 @@ import FAC_Common
 @Observable
 public class LoggingService {
     public var logcat: [LogcatModel] = []
-    public var isLogging = true
+    public var isLogging = false
     public var count = 0
-    public var isLoggingProcessor = false
+    public var isLoggingProcessor = true
     
-    public var printToConsole = false
+    public var printToConsole = true
     
     public static let shared = LoggingService()
     
@@ -47,6 +47,12 @@ public class LoggingService {
                 log(type: .info, message: "\(pc.hex()) - \(opcode)")
                 
             }
+        }
+    }
+    
+    public func logProcessor(_ pc: UInt16, _ message: String?) {
+        if isLoggingProcessor {
+                log(type: .info, message: "\(pc.hex()): \(message ?? "")")
         }
     }
     
